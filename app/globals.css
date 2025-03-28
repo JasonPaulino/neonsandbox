@@ -1,0 +1,138 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+ 
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 3.9%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 3.9%;
+ 
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 3.9%;
+ 
+    --primary: 0 72.2% 50.6%;
+    --primary-foreground: 0 85.7% 97.3%;
+ 
+    --secondary: 0 0% 96.1%;
+    --secondary-foreground: 0 0% 9%;
+ 
+    --muted: 0 0% 96.1%;
+    --muted-foreground: 0 0% 45.1%;
+ 
+    --accent: 0 0% 96.1%;
+    --accent-foreground: 0 0% 9%;
+ 
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 0 0% 89.8%;
+    --input: 0 0% 89.8%;
+    --ring: 0 72.2% 50.6%;
+ 
+    --radius: 0.5rem;
+
+    /* Neon Colors */
+    --neon-blue: 195 100% 50%;
+    --neon-pink: 320 100% 50%;
+    --neon-green: 140 100% 50%;
+    --neon-purple: 280 100% 50%;
+  }
+ 
+  .dark {
+    --background: 0 0% 3.9%;
+    --foreground: 0 0% 98%;
+ 
+    --card: 0 0% 3.9%;
+    --card-foreground: 0 0% 98%;
+ 
+    --popover: 0 0% 3.9%;
+    --popover-foreground: 0 0% 98%;
+ 
+    --primary: 0 72.2% 50.6%;
+    --primary-foreground: 0 85.7% 97.3%;
+ 
+    --secondary: 0 0% 14.9%;
+    --secondary-foreground: 0 0% 98%;
+ 
+    --muted: 0 0% 14.9%;
+    --muted-foreground: 0 0% 63.9%;
+ 
+    --accent: 0 0% 14.9%;
+    --accent-foreground: 0 0% 98%;
+ 
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+ 
+    --border: 0 0% 14.9%;
+    --input: 0 0% 14.9%;
+    --ring: 0 72.2% 50.6%;
+  }
+}
+ 
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Neon text effects */
+.neon-text-blue {
+  color: hsl(var(--neon-blue));
+  text-shadow: 0 0 10px hsl(var(--neon-blue) / 0.5),
+               0 0 20px hsl(var(--neon-blue) / 0.3);
+}
+
+.neon-text-pink {
+  color: hsl(var(--neon-pink));
+  text-shadow: 0 0 10px hsl(var(--neon-pink) / 0.5),
+               0 0 20px hsl(var(--neon-pink) / 0.3);
+}
+
+.neon-text-green {
+  color: hsl(var(--neon-green));
+  text-shadow: 0 0 10px hsl(var(--neon-green) / 0.5),
+               0 0 20px hsl(var(--neon-green) / 0.3);
+}
+
+.neon-text-purple {
+  color: hsl(var(--neon-purple));
+  text-shadow: 0 0 10px hsl(var(--neon-purple) / 0.5),
+               0 0 20px hsl(var(--neon-purple) / 0.3);
+}
+
+/* Neon border effects */
+.neon-border {
+  position: relative;
+}
+
+.neon-border::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: inherit;
+  padding: 2px;
+  background: linear-gradient(
+    45deg,
+    hsl(var(--neon-blue)),
+    hsl(var(--neon-pink)),
+    hsl(var(--neon-purple)),
+    hsl(var(--neon-green))
+  );
+  -webkit-mask: 
+    linear-gradient(#fff 0 0) content-box, 
+    linear-gradient(#fff 0 0);
+  mask: 
+    linear-gradient(#fff 0 0) content-box, 
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}

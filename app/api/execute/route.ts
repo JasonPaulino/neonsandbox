@@ -1,4 +1,4 @@
-import { auth } from "@clerk/nextjs";
+import { auth } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 import { exec } from "child_process";
 import { writeFile } from "fs/promises";
@@ -11,7 +11,7 @@ const TIMEOUT = 10000; // 10 seconds
 
 export async function POST(req: Request) {
   try {
-    const { userId } = auth();
+    const { userId } = await auth();
     if (!userId) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
@@ -61,14 +61,14 @@ export async function POST(req: Request) {
 
 async function runWithTimeout(command: string): Promise<string> {
   try {
-    const { stdout, stderr } = await Promise.race([
+    const result = await Promise.race([
       execAsync(command),
       new Promise((_, reject) => 
         setTimeout(() => reject(new Error("Execution timed out")), TIMEOUT)
       ),
-    ]);
+    ]) as { stdout: string; stderr: string };
 
-    return stderr || stdout;
+    return result.stderr || result.stdout;
   } catch (error: any) {
     throw new Error(error.message || "Execution failed");
   }

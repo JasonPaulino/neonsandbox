@@ -10,6 +10,7 @@ import {
 import { Geist, Geist_Mono } from 'next/font/google'
 import { ThemeProvider } from "next-themes"
 import { Toaster } from "sonner"
+import { Providers } from '@/store/provider'
 import './globals.css'
 
 const geistSans = Geist({
@@ -36,24 +37,26 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en" suppressHydrationWarning>
         <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="dark"
-            enableSystem={false}
-            disableTransitionOnChange
-          >
-            <header className="flex justify-end items-center p-4 gap-4 h-16 border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-              <SignedOut>
-                <SignInButton mode="modal" />
-                <SignUpButton mode="modal" />
-              </SignedOut>
-              <SignedIn>
-                <UserButton afterSignOutUrl="/" />
-              </SignedIn>
-            </header>
-            {children}
-            <Toaster position="bottom-right" theme="dark" />
-          </ThemeProvider>
+          <Providers>
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="dark"
+              enableSystem={false}
+              disableTransitionOnChange
+            >
+              <header className="flex justify-end items-center p-4 gap-4 h-16 border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+                <SignedOut>
+                  <SignInButton mode="modal" />
+                  <SignUpButton mode="modal" />
+                </SignedOut>
+                <SignedIn>
+                  <UserButton afterSignOutUrl="/" />
+                </SignedIn>
+              </header>
+              {children}
+              <Toaster position="bottom-right" theme="dark" />
+            </ThemeProvider>
+          </Providers>
         </body>
       </html>
     </ClerkProvider>
